@@ -2,6 +2,7 @@ package lightlib.sdf.gengine;
 
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.Script;
+import lightlib.sdf.gengine.plugin.Assert;
 import lightlib.sdf.gengine.plugin.Console;
 import lightlib.sdf.gengine.plugin.DynamicDataSet;
 
@@ -35,6 +36,7 @@ public class GEngine {
         plugins.add(args);
         plugins.add(new Console());
         plugins.add(new DynamicDataSet());
+        plugins.add(new Assert());
 
         binding.initPlugin(plugins);
     }
@@ -46,6 +48,9 @@ public class GEngine {
             for (Plugin<?> plugin : plugins) {//init plugin
                 plugin.init(option);
             }
+
+            //init
+            ContextSnapshot.getContext().log("init-GEngine",option,args);
 
             Class<Script> clz = clzLoader.parseClass(scriptCode);//
             Script script = clz.newInstance();
@@ -68,4 +73,6 @@ public class GEngine {
 
         return rs;
     }
+
+
 }

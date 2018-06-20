@@ -9,7 +9,7 @@ public interface IData {
 
     /**
      * @param args
-     * @return
+     * @return 校验成功返回true
      */
     boolean precheckArgument(Object... args);
 
